@@ -1,0 +1,620 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Administrator Dashboard - UniBridge</title>
+    <link rel="stylesheet" href="main.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+</head>
+<body>
+    <nav>
+        <a href="index.html"><i class="fas fa-home"></i> Home</a>
+        <a href="contact.html"><i class="fas fa-envelope"></i> Contact Us</a>
+        <div class="dropdown">
+        <a href="admin-dashboard.html" class="dropbtn active-nav"><i class="fas fa-user-shield"></i> Admin <i class="fas fa-chevron-down" style="font-size:12px;margin-left:5px;"></i></a>
+        <div class="dropdown-content">
+            <a href="admin-dashboard.html?role=principal"><i class="fas fa-crown"></i> Principal</a>
+            <a href="admin-dashboard.html?role=registrar"><i class="fas fa-address-book"></i> Registrar</a>
+            <a href="admin-dashboard.html?role=dean"><i class="fas fa-graduation-cap"></i> Dean</a>
+            <a href="admin-dashboard.html?role=hod"><i class="fas fa-users"></i> Head of Department</a>
+            <a href="admin-dashboard.html?role=secretary"><i class="fas fa-clipboard-list"></i> Secretary</a>
+        </div>
+    </div>
+        <a href="student-dashboard.html"><i class="fas fa-user-graduate"></i> Student</a>
+        <a href="lecturer-dashboard.html"><i class="fas fa-chalkboard-teacher"></i> Lecturer</a>
+        <a href="signin.html" class="signin-btn"><i class="fas fa-sign-in-alt"></i> Sign In</a>
+    </nav>
+
+    <div class="container" id="adminApp">
+        <div id="roleScreen" class="role-screen">
+            <div class="role-screen-box">
+                <i class="fas fa-user-shield"></i>
+                <h1>Administration Panel</h1>
+                <p>Select your role to access your dashboard</p>
+                <div class="role-cards">
+                    <div class="role-card" onclick="selectRole('principal')" data-role="principal">
+                        <i class="fas fa-crown"></i>
+                        <h3>Principal</h3>
+                    </div>
+                    <div class="role-card" onclick="selectRole('registrar')" data-role="registrar">
+                        <i class="fas fa-address-book"></i>
+                        <h3>Registrar</h3>
+                    </div>
+                    <div class="role-card" onclick="selectRole('dean')" data-role="dean">
+                        <i class="fas fa-graduation-cap"></i>
+                        <h3>Dean</h3>
+                    </div>
+                    <div class="role-card" onclick="selectRole('hod')" data-role="hod">
+                        <i class="fas fa-users"></i>
+                        <h3>HOD</h3>
+                    </div>
+                    <div class="role-card" onclick="selectRole('secretary')" data-role="secretary">
+                        <i class="fas fa-clipboard-list"></i>
+                        <h3>Secretary</h3>
+                    </div>
+                </div>
+                <p class="role-screen-footer">Click a role to continue</p>
+            </div>
+        </div>
+
+        <div id="dashboardContent" style="display:none;">
+            <div class="dashboard-header">
+                <h1><i class="fas fa-user-cog"></i> <span id="roleTitle">Administration</span> Dashboard</h1>
+            </div>
+
+            <div id="dashboardBody"></div>
+        </div>
+    </div>
+
+    <footer>
+        <p>UniBridge &copy; 2026 | Connecting Universities</p>
+    </footer>
+
+    <script>
+        function selectRole(role) {
+            // Save role and show dashboard
+            document.getElementById('roleScreen').style.display = 'none';
+            document.getElementById('dashboardContent').style.display = 'block';
+            // Set the title
+            var titles = {
+                principal: 'Principal',
+                registrar: 'Registrar',
+                dean: 'Dean',
+                hod: 'Head of Department',
+                secretary: 'Secretary'
+            };
+            document.getElementById('roleTitle').textContent = titles[role] || 'Administration';
+            switchRole(role);
+        }
+
+        // Auto-select from URL parameter
+        var roleParam = new URLSearchParams(window.location.search).get('role');
+        if (roleParam) { selectRole(roleParam); }
+
+        function switchRole(role) {
+            var content = document.getElementById('dashboardBody');
+            var html = '';
+            switch(role) {
+                case 'principal':
+                    html = principalDashboard();
+                    break;
+                case 'registrar':
+                    html = registrarDashboard();
+                    break;
+                case 'dean':
+                    html = deanDashboard();
+                    break;
+                case 'hod':
+                    html = hodDashboard();
+                    break;
+                case 'secretary':
+                    html = secretaryDashboard();
+                    break;
+                default:
+                    html = '<p class="role-placeholder"><i class="fas fa-arrow-up"></i> Select a role above to view your dashboard</p>';
+            }
+            content.innerHTML = html;
+        }
+
+        function principalDashboard() {
+            return `
+                <div class="dashboard-grid">
+                    <div class="profile-card">
+                        <div class="profile-icon" style="background:#8e44ad;">
+                            <i class="fas fa-crown"></i>
+                        </div>
+                        <h3>Principal</h3>
+                        <p>University Leadership</p>
+                        <span class="badge badge-admin">Principal</span>
+                    </div>
+                    <div class="quick-stats">
+                        <div class="stat-item">
+                            <i class="fas fa-user-graduate"></i>
+                            <div>
+                                <span class="stat-number">5,200</span>
+                                <span class="stat-label">Total Students</span>
+                            </div>
+                        </div>
+                        <div class="stat-item">
+                            <i class="fas fa-chalkboard-teacher"></i>
+                            <div>
+                                <span class="stat-number">320</span>
+                                <span class="stat-label">Total Staff</span>
+                            </div>
+                        </div>
+                        <div class="stat-item">
+                            <i class="fas fa-building"></i>
+                            <div>
+                                <span class="stat-number">8</span>
+                                <span class="stat-label">Faculties</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="dashboard-sections">
+                    <div class="section-card">
+                        <h2><i class="fas fa-university"></i> University Overview</h2>
+                        <div class="department-info">
+                            <p><strong>University:</strong> University of Technology</p>
+                            <p><strong>Faculties:</strong> 8</p>
+                            <p><strong>Departments:</strong> 24</p>
+                            <p><strong>Staff:</strong> 320 Lecturers & Administrators</p>
+                            <p><strong>Students:</strong> 5,200 Enrolled</p>
+                            <p><strong>Academic Year:</strong> 2025-2026</p>
+                        </div>
+                    </div>
+                    <div class="section-card">
+                        <h2><i class="fas fa-gavel"></i> Pending Approvals</h2>
+                        <div class="announcement-list">
+                            <div class="announcement-item unread">
+                                <h4>New Faculty Budget Proposal</h4>
+                                <p>Faculty of Science submitted budget for next quarter - <strong>Pending Review</strong></p>
+                            </div>
+                            <div class="announcement-item unread">
+                                <h4>Curriculum Change Request</h4>
+                                <p>Computer Science Department proposed curriculum updates - <strong>Pending Approval</strong></p>
+                            </div>
+                            <div class="announcement-item unread">
+                                <h4>Staff Promotion Recommendations</h4>
+                                <p>5 staff members recommended for promotion - <strong>Pending Review</strong></p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="dashboard-sections">
+                    <div class="section-card">
+                        <h2><i class="fas fa-bullhorn"></i> University-Wide Announcement</h2>
+                        <div class="announcement-form">
+                            <input type="text" class="form-input" placeholder="Announcement Title">
+                            <select class="form-input">
+                                <option value="all">All University</option>
+                                <option value="faculty">All Faculties</option>
+                                <option value="staff">Staff Only</option>
+                                <option value="students">Students Only</option>
+                            </select>
+                            <textarea class="form-input" rows="4" placeholder="Write your announcement here..."></textarea>
+                            <button class="btn btn-primary"><i class="fas fa-paper-plane"></i> Broadcast to All</button>
+                        </div>
+                    </div>
+                    <div class="section-card">
+                        <h2><i class="fas fa-chart-line"></i> University Statistics</h2>
+                        <div class="stats-detail">
+                            <div class="stats-row"><span><i class="fas fa-check-circle"></i> Graduation Rate</span><strong>78%</strong></div>
+                            <div class="stats-row"><span><i class="fas fa-user-plus"></i> New Enrollment</span><strong>1,100</strong></div>
+                            <div class="stats-row"><span><i class="fas fa-phone"></i> Active Communications</span><strong>2,450</strong></div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="quick-actions">
+                    <h2><i class="fas fa-bolt"></i> Quick Actions</h2>
+                    <div class="action-grid">
+                        <button class="quick-action-btn"><i class="fas fa-gavel"></i><span>Approve Requests</span></button>
+                        <button class="quick-action-btn"><i class="fas fa-bullhorn"></i><span>Broadcast</span></button>
+                        <button class="quick-action-btn"><i class="fas fa-chart-pie"></i><span>View Reports</span></button>
+                        <button class="quick-action-btn"><i class="fas fa-calendar-alt"></i><span>Calendar</span></button>
+                    </div>
+                </div>
+            `;
+        }
+
+        function registrarDashboard() {
+            return `
+                <div class="dashboard-grid">
+                    <div class="profile-card">
+                        <div class="profile-icon" style="background:#2980b9;">
+                            <i class="fas fa-address-book"></i>
+                        </div>
+                        <h3>Registrar</h3>
+                        <p>Student Records & Admissions</p>
+                        <span class="badge badge-admin">Registrar</span>
+                    </div>
+                    <div class="quick-stats">
+                        <div class="stat-item">
+                            <i class="fas fa-user-plus"></i>
+                            <div>
+                                <span class="stat-number">340</span>
+                                <span class="stat-label">Applications</span>
+                            </div>
+                        </div>
+                        <div class="stat-item">
+                            <i class="fas fa-file-alt"></i>
+                            <div>
+                                <span class="stat-number">1,200</span>
+                                <span class="stat-label">Records</span>
+                            </div>
+                        </div>
+                        <div class="stat-item">
+                            <i class="fas fa-clock"></i>
+                            <div>
+                                <span class="stat-number">18</span>
+                                <span class="stat-label">Pending</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="dashboard-sections">
+                    <div class="section-card">
+                        <h2><i class="fas fa-file-invoice"></i> Recent Applications</h2>
+                        <div class="announcement-list">
+                            <div class="announcement-item unread">
+                                <h4>Transfer Application - Alice Karungi</h4>
+                                <p>From: Mathematics → Computer Science - <strong>Pending</strong></p>
+                            </div>
+                            <div class="announcement-item unread">
+                                <h4>New Admission - Bob Mugisha</h4>
+                                <p>Department: Electrical Engineering - <strong>Documents Under Review</strong></p>
+                            </div>
+                            <div class="announcement-item">
+                                <h4>Graduation Clearance - John Kamali</h4>
+                                <p>Computer Science - <strong>Cleared</strong></p>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="section-card">
+                        <h2><i class="fas fa-users"></i> Manage Student Records</h2>
+                        <div class="announcement-form">
+                            <input type="text" class="form-input" placeholder="Search student by name or ID...">
+                            <div class="user-tabs">
+                                <button class="tab-btn active">All Students</button>
+                                <button class="tab-btn">Active</button>
+                                <button class="tab-btn">Graduated</button>
+                                <button class="tab-btn">Suspended</button>
+                            </div>
+                        </div>
+                        <div class="user-list" style="margin-top:15px;">
+                            <div class="user-item"><div class="user-avatar">JK</div><div class="user-info"><h4>John Kamali</h4><p>CS2001 • Computer Science • Year 2</p></div><span class="user-status active">Active</span><button class="action-btn"><i class="fas fa-ellipsis-v"></i></button></div>
+                            <div class="user-item"><div class="user-avatar">AK</div><div class="user-info"><h4>Alice Karungi</h4><p>CS2002 • Mathematics • Year 2</p></div><span class="user-status active">Active</span><button class="action-btn"><i class="fas fa-ellipsis-v"></i></button></div>
+                            <div class="user-item"><div class="user-avatar">BM</div><div class="user-info"><h4>Bob Mugisha</h4><p>EE2001 • Electrical Eng. • Year 1</p></div><span class="user-status active">Active</span><button class="action-btn"><i class="fas fa-ellipsis-v"></i></button></div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="dashboard-sections">
+                    <div class="section-card">
+                        <h2><i class="fas fa-calendar-check"></i> Academic Calendar</h2>
+                        <div class="department-info">
+                            <p><strong>Current Semester:</strong> Semester 2, 2025-2026</p>
+                            <p><strong>Registration:</strong> Jan 15 - Feb 5</p>
+                            <p><strong>Exams:</strong> May 10 - May 30</p>
+                            <p><strong>Graduation:</strong> June 20, 2026</p>
+                        </div>
+                    </div>
+                    <div class="section-card">
+                        <h2><i class="fas fa-chart-line"></i> Enrollment Stats</h2>
+                        <div class="stats-detail">
+                            <div class="stats-row"><span>New Enrollments</span><strong>1,100</strong></div>
+                            <div class="stats-row"><span>Continuing Students</span><strong>3,800</strong></div>
+                            <div class="stats-row"><span>Graduating</span><strong>520</strong></div>
+                            <div class="stats-row"><span>Transfers Pending</span><strong>18</strong></div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="quick-actions">
+                    <h2><i class="fas fa-bolt"></i> Quick Actions</h2>
+                    <div class="action-grid">
+                        <button class="quick-action-btn"><i class="fas fa-user-plus"></i><span>Enroll Student</span></button>
+                        <button class="quick-action-btn"><i class="fas fa-file-export"></i><span>Export Records</span></button>
+                        <button class="quick-action-btn"><i class="fas fa-print"></i><span>Print Transcript</span></button>
+                        <button class="quick-action-btn"><i class="fas fa-search"></i><span>Verify Record</span></button>
+                    </div>
+                </div>
+            `;
+        }
+
+        function deanDashboard() {
+            return `
+                <div class="dashboard-grid">
+                    <div class="profile-card">
+                        <div class="profile-icon" style="background:#e67e22;">
+                            <i class="fas fa-graduation-cap"></i>
+                        </div>
+                        <h3>Dean</h3>
+                        <p>Faculty of Science & Technology</p>
+                        <span class="badge badge-admin">Dean</span>
+                    </div>
+                    <div class="quick-stats">
+                        <div class="stat-item">
+                            <i class="fas fa-building"></i>
+                            <div>
+                                <span class="stat-number">6</span>
+                                <span class="stat-label">Departments</span>
+                            </div>
+                        </div>
+                        <div class="stat-item">
+                            <i class="fas fa-chalkboard-teacher"></i>
+                            <div>
+                                <span class="stat-number">85</span>
+                                <span class="stat-label">Lecturers</span>
+                            </div>
+                        </div>
+                        <div class="stat-item">
+                            <i class="fas fa-user-graduate"></i>
+                            <div>
+                                <span class="stat-number">1,450</span>
+                                <span class="stat-label">Students</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="dashboard-sections">
+                    <div class="section-card">
+                        <h2><i class="fas fa-building"></i> Departments Under My Faculty</h2>
+                        <div class="department-list">
+                            <div class="department-item"><div class="dept-icon"><i class="fas fa-laptop-code"></i></div><div class="dept-info"><h4>Computer Science</h4><p>24 Lecturers • 340 Students • HOD: Dr. Roberts</p></div><button class="action-btn"><i class="fas fa-eye"></i></button></div>
+                            <div class="department-item"><div class="dept-icon"><i class="fas fa-calculator"></i></div><div class="dept-info"><h4>Mathematics</h4><p>18 Lecturers • 280 Students • HOD: Dr. Uwimana</p></div><button class="action-btn"><i class="fas fa-eye"></i></button></div>
+                            <div class="department-item"><div class="dept-icon"><i class="fas fa-flask"></i></div><div class="dept-info"><h4>Chemistry</h4><p>15 Lecturers • 210 Students • HOD: Dr. Mugabo</p></div><button class="action-btn"><i class="fas fa-eye"></i></button></div>
+                            <div class="department-item"><div class="dept-icon"><i class="fas fa-dna"></i></div><div class="dept-info"><h4>Biology</h4><p>16 Lecturers • 230 Students • HOD: Dr. Kamali</p></div><button class="action-btn"><i class="fas fa-eye"></i></button></div>
+                        </div>
+                    </div>
+                    <div class="section-card">
+                        <h2><i class="fas fa-file-alt"></i> Faculty Reports</h2>
+                        <div class="announcement-list">
+                            <div class="announcement-item unread"><h4>Departmental Performance Q1</h4><p>Monthly performance reports from all 6 departments - <strong>2 Pending</strong></p></div>
+                            <div class="announcement-item unread"><h4>Research Grant Submissions</h4><p>3 new research grant proposals awaiting dean's endorsement</p></div>
+                            <div class="announcement-item"><h4>Faculty Board Meeting Minutes</h4><p>Minutes from last faculty board meeting - <strong>Approved</strong></p></div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="dashboard-sections">
+                    <div class="section-card">
+                        <h2><i class="fas fa-calendar-alt"></i> Faculty Calendar</h2>
+                        <div class="department-info">
+                            <p><strong>Next Faculty Board:</strong> May 15, 2026</p>
+                            <p><strong>Research Symposium:</strong> June 5, 2026</p>
+                            <p><strong>Exam Committee:</strong> May 8, 2026</p>
+                            <p><strong>Staff Meeting:</strong> Every Monday 10:00 AM</p>
+                        </div>
+                    </div>
+                    <div class="section-card">
+                        <h2><i class="fas fa-bullhorn"></i> Faculty Announcement</h2>
+                        <div class="announcement-form">
+                            <input type="text" class="form-input" placeholder="Announcement Title">
+                            <select class="form-input"><option value="">All Faculty</option><option value="">Specific Department</option></select>
+                            <textarea class="form-input" rows="3" placeholder="Write your announcement..."></textarea>
+                            <button class="btn btn-primary"><i class="fas fa-paper-plane"></i> Post to Faculty</button>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="quick-actions">
+                    <h2><i class="fas fa-bolt"></i> Quick Actions</h2>
+                    <div class="action-grid">
+                        <button class="quick-action-btn"><i class="fas fa-building"></i><span>Manage Depts</span></button>
+                        <button class="quick-action-btn"><i class="fas fa-file-signature"></i><span>Approve Reports</span></button>
+                        <button class="quick-action-btn"><i class="fas fa-bullhorn"></i><span>Faculty Broadcast</span></button>
+                        <button class="quick-action-btn"><i class="fas fa-users"></i><span>View Staff</span></button>
+                    </div>
+                </div>
+            `;
+        }
+
+        function hodDashboard() {
+            return `
+                <div class="dashboard-grid">
+                    <div class="profile-card">
+                        <div class="profile-icon" style="background:#27ae60;">
+                            <i class="fas fa-users"></i>
+                        </div>
+                        <h3>Head of Department</h3>
+                        <p>Computer Science Department</p>
+                        <span class="badge badge-admin">HOD</span>
+                    </div>
+                    <div class="quick-stats">
+                        <div class="stat-item">
+                            <i class="fas fa-chalkboard-teacher"></i>
+                            <div>
+                                <span class="stat-number">24</span>
+                                <span class="stat-label">Lecturers</span>
+                            </div>
+                        </div>
+                        <div class="stat-item">
+                            <i class="fas fa-user-graduate"></i>
+                            <div>
+                                <span class="stat-number">340</span>
+                                <span class="stat-label">Students</span>
+                            </div>
+                        </div>
+                        <div class="stat-item">
+                            <i class="fas fa-book"></i>
+                            <div>
+                                <span class="stat-number">12</span>
+                                <span class="stat-label">Courses</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="dashboard-sections">
+                    <div class="section-card">
+                        <h2><i class="fas fa-chalkboard-teacher"></i> Department Lecturers</h2>
+                        <div class="lecturer-list">
+                            <div class="lecturer-item"><div class="lecturer-avatar"><i class="fas fa-user-tie"></i></div><div class="lecturer-info"><h4>Dr. Sarah Mitchell</h4><p>Data Structures & Algorithms</p><p><i class="fas fa-envelope"></i> s.mitchell@university.edu</p></div><div class="lecturer-actions"><button class="action-btn"><i class="fas fa-comment"></i></button><button class="action-btn"><i class="fas fa-phone"></i></button></div></div>
+                            <div class="lecturer-item"><div class="lecturer-avatar"><i class="fas fa-user-tie"></i></div><div class="lecturer-info"><h4>Prof. James Wilson</h4><p>Software Engineering</p><p><i class="fas fa-envelope"></i> j.wilson@university.edu</p></div><div class="lecturer-actions"><button class="action-btn"><i class="fas fa-comment"></i></button><button class="action-btn"><i class="fas fa-phone"></i></button></div></div>
+                            <div class="lecturer-item"><div class="lecturer-avatar"><i class="fas fa-user-tie"></i></div><div class="lecturer-info"><h4>Dr. Emily Chen</h4><p>Database Systems</p><p><i class="fas fa-envelope"></i> e.chen@university.edu</p></div><div class="lecturer-actions"><button class="action-btn"><i class="fas fa-comment"></i></button><button class="action-btn"><i class="fas fa-phone"></i></button></div></div>
+                            <div class="lecturer-item"><div class="lecturer-avatar"><i class="fas fa-user-tie"></i></div><div class="lecturer-info"><h4>Prof. Michael Brown</h4><p>Computer Networks</p><p><i class="fas fa-envelope"></i> m.brown@university.edu</p></div><div class="lecturer-actions"><button class="action-btn"><i class="fas fa-comment"></i></button><button class="action-btn"><i class="fas fa-phone"></i></button></div></div>
+                        </div>
+                    </div>
+                    <div class="section-card">
+                        <h2><i class="fas fa-book"></i> Course Management</h2>
+                        <div class="course-list">
+                            <div class="course-item"><div class="course-icon"><i class="fas fa-code"></i></div><div class="course-info"><h4>Data Structures & Algorithms</h4><p>CS201 • 45 students • Dr. Mitchell</p></div><button class="action-btn"><i class="fas fa-eye"></i></button></div>
+                            <div class="course-item"><div class="course-icon"><i class="fas fa-laptop-code"></i></div><div class="course-info"><h4>Software Engineering</h4><p>CS304 • 38 students • Prof. Wilson</p></div><button class="action-btn"><i class="fas fa-eye"></i></button></div>
+                            <div class="course-item"><div class="course-icon"><i class="fas fa-database"></i></div><div class="course-info"><h4>Database Systems</h4><p>CS305 • 40 students • Dr. Chen</p></div><button class="action-btn"><i class="fas fa-eye"></i></button></div>
+                            <div class="course-item"><div class="course-icon"><i class="fas fa-network-wired"></i></div><div class="course-info"><h4>Computer Networks</h4><p>CS401 • 32 students • Prof. Brown</p></div><button class="action-btn"><i class="fas fa-eye"></i></button></div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="dashboard-sections">
+                    <div class="section-card">
+                        <h2><i class="fas fa-bullhorn"></i> Department Announcements</h2>
+                        <div class="announcement-form">
+                            <input type="text" class="form-input" placeholder="Announcement Title">
+                            <textarea class="form-input" rows="3" placeholder="Write your announcement for the department..."></textarea>
+                            <button class="btn btn-primary"><i class="fas fa-paper-plane"></i> Post to Department</button>
+                        </div>
+                    </div>
+                    <div class="section-card">
+                        <h2><i class="fas fa-chart-line"></i> Department Stats</h2>
+                        <div class="stats-detail">
+                            <div class="stats-row"><span>Active Courses</span><strong>12</strong></div>
+                            <div class="stats-row"><span>Total Students</span><strong>340</strong></div>
+                            <div class="stats-row"><span>Research Projects</span><strong>8</strong></div>
+                            <div class="stats-row"><span>Pending Requests</span><strong>5</strong></div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="quick-actions">
+                    <h2><i class="fas fa-bolt"></i> Quick Actions</h2>
+                    <div class="action-grid">
+                        <button class="quick-action-btn"><i class="fas fa-calendar-alt"></i><span>Schedule Class</span></button>
+                        <button class="quick-action-btn"><i class="fas fa-file-alt"></i><span>Course Reports</span></button>
+                        <button class="quick-action-btn"><i class="fas fa-bullhorn"></i><span>Announce</span></button>
+                        <button class="quick-action-btn"><i class="fas fa-users"></i><span>View Dept</span></button>
+                    </div>
+                </div>
+            `;
+        }
+
+        function secretaryDashboard() {
+            return `
+                <div class="dashboard-grid">
+                    <div class="profile-card">
+                        <div class="profile-icon" style="background:#3498db;">
+                            <i class="fas fa-clipboard-list"></i>
+                        </div>
+                        <h3>Secretary</h3>
+                        <p>Administrative Support</p>
+                        <span class="badge badge-admin">Secretary</span>
+                    </div>
+                    <div class="quick-stats">
+                        <div class="stat-item">
+                            <i class="fas fa-calendar"></i>
+                            <div>
+                                <span class="stat-number">12</span>
+                                <span class="stat-label">Appointments</span>
+                            </div>
+                        </div>
+                        <div class="stat-item">
+                            <i class="fas fa-file"></i>
+                            <div>
+                                <span class="stat-number">8</span>
+                                <span class="stat-label">Documents</span>
+                            </div>
+                        </div>
+                        <div class="stat-item">
+                            <i class="fas fa-envelope"></i>
+                            <div>
+                                <span class="stat-number">24</span>
+                                <span class="stat-label">Correspondence</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="dashboard-sections">
+                    <div class="section-card">
+                        <h2><i class="fas fa-calendar-day"></i> Today's Schedule</h2>
+                        <div class="announcement-list">
+                            <div class="announcement-item unread">
+                                <span class="announcement-date">09:00 AM</span>
+                                <h4>Faculty Board Meeting</h4>
+                                <p>Conference Room A - Prepare minutes and agenda</p>
+                            </div>
+                            <div class="announcement-item unread">
+                                <span class="announcement-date">11:00 AM</span>
+                                <h4>Dean's Office Appointment</h4>
+                                <p>Review budget documents for next semester</p>
+                            </div>
+                            <div class="announcement-item">
+                                <span class="announcement-date">02:00 PM</span>
+                                <h4>Document Submission Deadline</h4>
+                                <p>Submit quarterly reports to the Principal's office</p>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="section-card">
+                        <h2><i class="fas fa-file-alt"></i> Document Management</h2>
+                        <div class="announcement-form">
+                            <input type="text" class="form-input" placeholder="Search documents...">
+                            <div class="user-tabs">
+                                <button class="tab-btn active">Recent</button>
+                                <button class="tab-btn">Pending</button>
+                                <button class="tab-btn">Archived</button>
+                            </div>
+                        </div>
+                        <div class="user-list" style="margin-top:15px;">
+                            <div class="user-item"><div class="user-avatar"><i class="fas fa-file-pdf"></i></div><div class="user-info"><h4>Faculty Board Minutes - April 2026</h4><p>2.3 MB • Updated 2 hours ago</p></div><button class="action-btn"><i class="fas fa-download"></i></button></div>
+                            <div class="user-item"><div class="user-avatar"><i class="fas fa-file-word"></i></div><div class="user-info"><h4>Budget Proposal - Science Faculty</h4><p>1.1 MB • Updated yesterday</p></div><button class="action-btn"><i class="fas fa-download"></i></button></div>
+                            <div class="user-item"><div class="user-avatar"><i class="fas fa-file-excel"></i></div><div class="user-info"><h4>Student Enrollment Report</h4><p>856 KB • Updated 3 days ago</p></div><button class="action-btn"><i class="fas fa-download"></i></button></div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="dashboard-sections">
+                    <div class="section-card">
+                        <h2><i class="fas fa-envelope"></i> Correspondence Tracking</h2>
+                        <div class="department-info">
+                            <p><strong>Incoming Mail:</strong> 5 Unread</p>
+                            <p><strong>Outgoing Mail:</strong> 3 Pending Dispatch</p>
+                            <p><strong>Drafts:</strong> 2</p>
+                        </div>
+                        <div class="user-list" style="margin-top:10px;">
+                            <div class="user-item"><div class="user-avatar"><i class="fas fa-envelope-open-text"></i></div><div class="user-info"><h4>Meeting Request - External Auditor</h4><p>Received: Today 08:30 AM</p></div><span class="user-status active">New</span></div>
+                            <div class="user-item"><div class="user-avatar"><i class="fas fa-envelope-open-text"></i></div><div class="user-info"><h4>Ministry of Education Circular</h4><p>Received: Yesterday 03:15 PM</p></div><span class="user-status active">New</span></div>
+                        </div>
+                    </div>
+                    <div class="section-card">
+                        <h2><i class="fas fa-tasks"></i> Pending Tasks</h2>
+                        <div class="stats-detail">
+                            <div class="stats-row"><span><i class="fas fa-print"></i> Print exam papers</span><strong>High</strong></div>
+                            <div class="stats-row"><span><i class="fas fa-file-signature"></i> Type meeting minutes</span><strong>Medium</strong></div>
+                            <div class="stats-row"><span><i class="fas fa-calendar"></i> Schedule appointments</span><strong>Medium</strong></div>
+                            <div class="stats-row"><span><i class="fas fa-archive"></i> File documents</span><strong>Low</strong></div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="quick-actions">
+                    <h2><i class="fas fa-bolt"></i> Quick Actions</h2>
+                    <div class="action-grid">
+                        <button class="quick-action-btn"><i class="fas fa-cloud-upload-alt"></i><span>Upload Document</span></button>
+                        <button class="quick-action-btn"><i class="fas fa-calendar-plus"></i><span>Schedule Meeting</span></button>
+                        <button class="quick-action-btn"><i class="fas fa-envelope"></i><span>Draft Letter</span></button>
+                        <button class="quick-action-btn"><i class="fas fa-print"></i><span>Print</span></button>
+                    </div>
+                </div>
+            `;
+        }
+    </script>
+</body>
+</html>
