@@ -1,0 +1,249 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Student Dashboard - UniBridge</title>
+    <link rel="stylesheet" href="../styles/student-dashboard.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+</head>
+<body>
+    <nav>
+        <a href="homepage.html"><i class="fas fa-home"></i> Home</a>
+        <a href="contact.html"><i class="fas fa-envelope"></i> Contact Us</a>
+        <a href="student-dashboard.html" class="active-nav"><i class="fas fa-user-graduate"></i> Student</a>
+        <a href="lecturer-dashboard.html"><i class="fas fa-chalkboard-teacher"></i> Lecturer</a>
+        <div class="dropdown">
+        <a href="admin-dashboard.html" class="dropbtn"><i class="fas fa-user-shield"></i> Admin <i class="fas fa-chevron-down" style="font-size:12px;margin-left:5px;"></i></a>
+        <div class="dropdown-content">
+            <a href="admin-dashboard.html?role=principal"><i class="fas fa-crown"></i> Principal</a>
+            <a href="admin-dashboard.html?role=registrar"><i class="fas fa-address-book"></i> Registrar</a>
+            <a href="admin-dashboard.html?role=dean"><i class="fas fa-graduation-cap"></i> Dean</a>
+            <a href="admin-dashboard.html?role=hod"><i class="fas fa-users"></i> Head of Department</a>
+            <a href="admin-dashboard.html?role=secretary"><i class="fas fa-clipboard-list"></i> Secretary</a>
+        </div>
+    </div>
+        <a href="signin.html" class="signin-btn"><i class="fas fa-sign-in-alt"></i> Sign In</a>
+    </nav>
+
+    <div class="container">
+        <div class="dashboard-header">
+            <h1><i class="fas fa-user-graduate"></i> Student Dashboard</h1>
+            <p>Welcome back! Connect with your university community.</p>
+        </div>
+
+        <div class="dashboard-grid">
+            <div class="profile-card">
+                <div class="profile-icon">
+                    <i class="fas fa-user"></i>
+                </div>
+                <h3>John Kamali</h3>
+                <p>Computer Science</p>
+                <span class="badge badge-student">Student</span>
+            </div>
+
+            <div class="quick-stats">
+                <div class="stat-item">
+                    <i class="fas fa-comments"></i>
+                    <div>
+                        <span class="stat-number">5</span>
+                        <span class="stat-label">Messages</span>
+                    </div>
+                </div>
+                <div class="stat-item">
+                    <i class="fas fa-bell"></i>
+                    <div>
+                        <span class="stat-number">3</span>
+                        <span class="stat-label">Announcements</span>
+                    </div>
+                </div>
+                <div class="stat-item">
+                    <i class="fas fa-users"></i>
+                    <div>
+                        <span class="stat-number">12</span>
+                        <span class="stat-label">Contacts</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="dashboard-sections">
+            <div class="section-card">
+                <h2><i class="fas fa-building"></i> My Department</h2>
+                <div class="department-info">
+                    <p><strong>Department:</strong> Computer Science</p>
+                    <p><strong>Faculty:</strong> Science & Technology</p>
+                    <p><strong>Campus:</strong> Main Campus</p>
+                    <p><strong>Academic Year:</strong> 2025-2026</p>
+                </div>
+            </div>
+
+            <div class="section-card" id="lecturers">
+                <h2><i class="fas fa-chalkboard-teacher"></i> Department Lecturers</h2>
+                <div class="lecturer-list">
+                    <div class="lecturer-item">
+                        <div class="lecturer-avatar">
+                            <i class="fas fa-user-tie"></i>
+                        </div>
+                        <div class="lecturer-info">
+                            <h4>Dr. Sarah Mitchell</h4>
+                            <p>Data Structures & Algorithms</p>
+                            <p><i class="fas fa-envelope"></i> s.mitchell@university.edu</p>
+                        </div>
+                        <div class="lecturer-actions">
+                            <button class="action-btn" title="Send Message"><i class="fas fa-comment"></i></button>
+                            <button class="action-btn" title="Call"><i class="fas fa-phone"></i></button>
+                            <button class="action-btn" title="Email"><i class="fas fa-envelope"></i></button>
+                        </div>
+                    </div>
+                    <div class="lecturer-item">
+                        <div class="lecturer-avatar">
+                            <i class="fas fa-user-tie"></i>
+                        </div>
+                        <div class="lecturer-info">
+                            <h4>Prof. James Wilson</h4>
+                            <p>Software Engineering</p>
+                            <p><i class="fas fa-envelope"></i> j.wilson@university.edu</p>
+                        </div>
+                        <div class="lecturer-actions">
+                            <button class="action-btn" title="Send Message"><i class="fas fa-comment"></i></button>
+                            <button class="action-btn" title="Call"><i class="fas fa-phone"></i></button>
+                            <button class="action-btn" title="Email"><i class="fas fa-envelope"></i></button>
+                        </div>
+                    </div>
+                    <div class="lecturer-item">
+                        <div class="lecturer-avatar">
+                            <i class="fas fa-user-tie"></i>
+                        </div>
+                        <div class="lecturer-info">
+                            <h4>Dr. Emily Chen</h4>
+                            <p>Database Systems</p>
+                            <p><i class="fas fa-envelope"></i> e.chen@university.edu</p>
+                        </div>
+                        <div class="lecturer-actions">
+                            <button class="action-btn" title="Send Message"><i class="fas fa-comment"></i></button>
+                            <button class="action-btn" title="Call"><i class="fas fa-phone"></i></button>
+                            <button class="action-btn" title="Email"><i class="fas fa-envelope"></i></button>
+                        </div>
+                    </div>
+                    <div class="lecturer-item">
+                        <div class="lecturer-avatar">
+                            <i class="fas fa-user-tie"></i>
+                        </div>
+                        <div class="lecturer-info">
+                            <h4>Prof. Michael Brown</h4>
+                            <p>Computer Networks</p>
+                            <p><i class="fas fa-envelope"></i> m.brown@university.edu</p>
+                        </div>
+                        <div class="lecturer-actions">
+                            <button class="action-btn" title="Send Message"><i class="fas fa-comment"></i></button>
+                            <button class="action-btn" title="Call"><i class="fas fa-phone"></i></button>
+                            <button class="action-btn" title="Email"><i class="fas fa-envelope"></i></button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="dashboard-sections">
+            <div class="section-card">
+                <h2><i class="fas fa-bullhorn"></i> Latest Announcements</h2>
+                <div class="announcement-list">
+                    <div class="announcement-item unread">
+                        <span class="announcement-date">Today</span>
+                        <h4>Midterm Exam Schedule Released</h4>
+                        <p>Dr. Sarah Mitchell posted the midterm examination schedule for Data Structures...</p>
+                    </div>
+                    <div class="announcement-item unread">
+                        <span class="announcement-date">Yesterday</span>
+                        <h4>Lab Assignment Due Date Extended</h4>
+                        <p>Prof. James Wilson has extended the deadline for Project Phase 2 to next Friday...</p>
+                    </div>
+                    <div class="announcement-item">
+                        <span class="announcement-date">3 days ago</span>
+                        <h4>Guest Lecture: Introduction to AI</h4>
+                        <p>A guest lecture on Artificial Intelligence will be held in the main auditorium...</p>
+                    </div>
+                </div>
+            </div>
+
+            <div class="section-card">
+                <h2><i class="fas fa-users"></i> Connect with Peers</h2>
+                <div class="peer-list">
+                    <div class="peer-item">
+                        <div class="peer-avatar">AK</div>
+                        <div class="peer-info">
+                            <h4>Alice Karungi</h4>
+                            <p>Computer Science • Year 2</p>
+                        </div>
+                        <button class="action-btn"><i class="fas fa-comment"></i></button>
+                    </div>
+                    <div class="peer-item">
+                        <div class="peer-avatar">BM</div>
+                        <div class="peer-info">
+                            <h4>Bob Mugisha</h4>
+                            <p>Computer Science • Year 2</p>
+                        </div>
+                        <button class="action-btn"><i class="fas fa-comment"></i></button>
+                    </div>
+                    <div class="peer-item">
+                        <div class="peer-avatar">CN</div>
+                        <div class="peer-info">
+                            <h4>Clara Nkusi</h4>
+                            <p>Computer Science • Year 2</p>
+                        </div>
+                        <button class="action-btn"><i class="fas fa-comment"></i></button>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="dashboard-sections">
+            <div class="section-card messaging-panel" id="messaging">
+                <h2><i class="fas fa-comments"></i> Messaging</h2>
+                <form class="message-compose">
+                    <input type="text" class="form-input" placeholder="Who do you want to message?">
+                    <textarea id="message-box" class="form-input" rows="5" placeholder="Write your message here..."></textarea>
+                    <button type="submit" class="btn btn-primary"><i class="fas fa-paper-plane"></i> Send Message</button>
+                </form>
+            </div>
+        </div>
+
+        <div class="quick-actions">
+            <h2><i class="fas fa-bolt"></i> Quick Actions</h2>
+            <div class="action-grid">
+                <a class="quick-action-btn" href="#messaging">
+                    <i class="fas fa-comment"></i>
+                    <span>New Message</span>
+                </a>
+                <button class="quick-action-btn">
+                    <i class="fas fa-phone"></i>
+                    <span>Call Lecturer</span>
+                </button>
+                <button class="quick-action-btn">
+                    <i class="fas fa-envelope"></i>
+                    <span>Send Email</span>
+                </button>
+                <button class="quick-action-btn">
+                    <i class="fas fa-calendar"></i>
+                    <span>View Schedule</span>
+                </button>
+            </div>
+        </div>
+    </div>
+
+    <footer>
+        <p>UniBridge &copy; 2026 | Connecting Universities</p>
+    </footer>
+    <script>
+        window.addEventListener('DOMContentLoaded', function () {
+            if (window.location.hash === '#messaging') {
+                var messageBox = document.getElementById('message-box');
+                if (messageBox) {
+                    messageBox.focus();
+                }
+            }
+        });
+    </script>
+</body>
+</html>
